@@ -5,9 +5,8 @@ priv8 Tools For Find Sqli Targets
 <br>
 <h4>For See Poc Video Click On Image!</h4>
 
-[![Watch the video](https://raw.githubusercontent.com/04x/ICG-AutoExploiterBoT/master/screen/screen.PNG)](https://www.aparat.com/v/SBYKy)
+[![Watch the video](https://raw.githubusercontent.com/04x/Priv8SqliTool/master/screenx.PNG)](https://www.aparat.com/v/SBYKy)
 <br>
-[![Watch the video](https://raw.githubusercontent.com/04x/ICG-AutoExploiterBoT/master/screen/log.PNG)](https://www.aparat.com/v/SBYKy)
 
 
 <br><br>

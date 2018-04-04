@@ -2,6 +2,7 @@ import os, re, sys, glob, time, urllib2, cookielib, random
 from urlparse import urlparse
 import threading
 from Queue import Queue
+
 try:
     import requests
 except ImportError:
@@ -9,6 +10,7 @@ except ImportError:
     print '[*] pip install requests'
     print '   [-] you need to install requests Module'
     sys.exit()
+
 
 class Dorker(object):
     def __init__(self):
@@ -22,7 +24,7 @@ class Dorker(object):
             os.mkdir('results')
         except:
             pass
-        self.concurrent = 500
+        self.concurrent = 70
         self.r = '\033[31m'
         self.g = '\033[32m'
         self.y = '\033[33m'
@@ -77,6 +79,7 @@ class Dorker(object):
             self.q.join()
         except:
             sys.exit()
+
     def cls(self):
         linux = 'clear'
         windows = 'cls'
@@ -99,7 +102,7 @@ class Dorker(object):
              |_____/ \__, |_|_| |_| |_|_| |_|\__,_|\___|_|   
                         | |      Iran-cyber.Net                            
                         |_|          Github.com/04x     
-            
+
      Note! : We don't Accept any responsibility for any illegal usage.       
     """
         for N, line in enumerate(x.split("\n")):
@@ -128,46 +131,49 @@ class Dorker(object):
         os.unlink('results/MyBeSqliVulnList.txt')
 
     def doWork(self):
-        while True:
-            dork = self.q.get()
-            for domain in self.domains:
-                next = 0
-                while next <= 500:
-                    url = 'http://www.bing.com/search?q=' + dork + 'site:' + domain + ' php?id=&first=' + str(
-                        next) + '&FORM=PORE'
-                    sess = requests.session()
-                    cnn = sess.get(url, headers=self.Header, timeout=5)
-                    next = next + 10
-                    finder = re.findall('<h2><a href="(\S+)"', cnn.text)
-                    for url in finder:
-                        if url.startswith('http://'):
-                            url = url.replace('http://', '')
-                        elif url.startswith('https://'):
-                            url = url.replace('https://', '')
-                        else:
-                            pass
-                        with open("logs/logs.txt", 'a') as f:
-                            if 'go.microsoft.com' in url:
-                                pass
-                            elif '.wordpress.' in url:
-                                pass
-                            elif '.blogspot.' in url:
-                                pass
+        try:
+            while True:
+                dork = self.q.get()
+                for domain in self.domains:
+                    next = 0
+                    while next <= 500:
+                        url = 'http://www.bing.com/search?q=' + dork + 'site:' + domain + ' php?id=&first=' + str(
+                            next) + '&FORM=PORE'
+                        sess = requests.session()
+                        cnn = sess.get(url, headers=self.Header, timeout=5)
+                        next = next + 10
+                        finder = re.findall('<h2><a href="(\S+)"', cnn.text)
+                        for url in finder:
+                            if url.startswith('http://'):
+                                url = url.replace('http://', '')
+                            elif url.startswith('https://'):
+                                url = url.replace('https://', '')
                             else:
-                                if 'php?id=' in url:
-                                    print self.c + '       [' + self.y + '+' + self.c + '] ' + self.y + url
-                                    f.write(str(url + '\n'))
-                                else:
+                                pass
+                            with open("logs/logs.txt", 'a') as f:
+                                if 'go.microsoft.com' in url:
                                     pass
-                lines = open("logs/logs.txt", 'r').read().splitlines()
-                lines_set = set(lines)
-                count = 0
-                for line in lines_set:
-                    with open("results/MyBeSqliVulnList.txt", 'a') as xx:
-                        count = count + 1
-                        xx.write(line + '\n')
-                '''self.duplicate_remover('results/MyBeSqliVulnList.txt')'''
-            self.q.task_done()
+                                elif '.wordpress.' in url:
+                                    pass
+                                elif '.blogspot.' in url:
+                                    pass
+                                else:
+                                    if 'php?id=' in url:
+                                        print self.c + '       [' + self.y + '+' + self.c + '] ' + self.y + url
+                                        f.write(str(url + '\n'))
+                                    else:
+                                        pass
+                    lines = open("logs/logs.txt", 'r').read().splitlines()
+                    lines_set = set(lines)
+                    count = 0
+                    for line in lines_set:
+                        with open("results/MyBeSqliVulnList.txt", 'a') as xx:
+                            count = count + 1
+                            xx.write(line + '\n')
+                    '''self.duplicate_remover('results/MyBeSqliVulnList.txt')'''
+                self.q.task_done()
+        except:
+            pass
 
 
 Dorker()
